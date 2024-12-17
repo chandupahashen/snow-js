@@ -1,5 +1,4 @@
-// snow.js
-(function() {
+(function () {
     // Snowfall effect
     function createSnowflake() {
         const snowflake = document.createElement('div');
@@ -19,20 +18,6 @@
         snowflake.style.backgroundColor = '#fff';
         snowflake.style.borderRadius = '50%';
         snowflake.style.opacity = '0.7';
-
-        // Add snowfall animation
-        snowflake.style.animation = 'snowfall linear infinite';
-
-        document.styleSheets[0].insertRule(`
-            @keyframes snowfall {
-                0% {
-                    transform: translateY(-10px) rotate(0deg);
-                }
-                100% {
-                    transform: translateY(100vh) rotate(360deg);
-                }
-            }
-        `, 0);
 
         // Remove snowflake after it falls
         snowflake.addEventListener('animationend', () => {
