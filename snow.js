@@ -1,30 +1,50 @@
-(function () {
-    // Snowfall effect
+(function() {
+    const snowflakeCount = 50; // Number of snowflakes
+    const snowflakes = [];
+    const body = document.body;
+
     function createSnowflake() {
         const snowflake = document.createElement('div');
         snowflake.classList.add('snowflake');
-        document.body.appendChild(snowflake);
+        snowflake.style.left = `${Math.random() * 100}vw`;
+        snowflake.style.animationDuration = `${3 + Math.random() * 5}s`; // Speed of falling
+        snowflake.style.opacity = Math.random();
+        snowflake.style.fontSize = `${10 + Math.random() * 20}px`; // Size of snowflake
+        snowflake.textContent = '❄';
+        body.appendChild(snowflake);
+        snowflakes.push(snowflake);
 
-        const size = Math.random() * 5 + 2; // Random size between 2px and 7px
-        const startPosX = Math.random() * window.innerWidth; // Random horizontal position
-        const animationDuration = Math.random() * 3 + 2; // Random duration between 2s and 5s
-
-        snowflake.style.width = `${size}px`;
-        snowflake.style.height = `${size}px`;
-        snowflake.style.left = `${startPosX}px`;
-        snowflake.style.animationDuration = `${animationDuration}s`;
-        snowflake.style.position = 'absolute';
-        snowflake.style.top = '-10px';
-        snowflake.style.backgroundColor = '#fff';
-        snowflake.style.borderRadius = '50%';
-        snowflake.style.opacity = '0.7';
-
-        // Remove snowflake after it falls
-        snowflake.addEventListener('animationend', () => {
-            snowflake.remove();
-        });
+        setTimeout(() => {
+            body.removeChild(snowflake);
+            snowflakes.splice(snowflakes.indexOf(snowflake), 1);
+        }, 8000); // Time to remove the snowflake after animation ends
     }
 
-    // Create snowflakes every 100ms
-    setInterval(createSnowflake, 100);
+    function initSnowfall() {
+        const style = document.createElement('style');
+        style.textContent = `
+            .snowflake {
+                position: fixed;
+                top: -50px;
+                color: white;
+                z-index: 9999;
+                pointer-events: none;
+                animation: fall linear infinite;
+            }
+            @keyframes fall {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                }
+                100% {
+                    transform: translateY(100vh) rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        setInterval(createSnowflake, 200); // Generate a new snowflake every 200ms
+    }
+
+    // Initialize the snowfall effect
+    window.addEventListener('load', initSnowfall);
 })();
