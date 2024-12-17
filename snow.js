@@ -7,7 +7,7 @@
         const snowflake = document.createElement('div');
         snowflake.classList.add('snowflake');
         snowflake.style.left = `${Math.random() * 100}vw`;
-        snowflake.style.animationDuration = `${3 + Math.random() * 5}s`; // Speed of falling
+        snowflake.style.animationDuration = `${8 + Math.random() * 5}s`; // Speed of falling
         snowflake.style.opacity = Math.random();
         snowflake.style.fontSize = `${10 + Math.random() * 20}px`; // Size of snowflake
         snowflake.textContent = '❄';
@@ -17,7 +17,7 @@
         setTimeout(() => {
             body.removeChild(snowflake);
             snowflakes.splice(snowflakes.indexOf(snowflake), 1);
-        }, 8000); // Time to remove the snowflake after animation ends
+        }, 10000); // Time to remove the snowflake after animation ends
     }
 
     function initSnowfall() {
@@ -36,7 +36,7 @@
                     transform: translateY(0) rotate(0deg);
                 }
                 100% {
-                    transform: translateY(100vh) rotate(360deg);
+                    transform: translateY(120vh) rotate(360deg);
                 }
             }
         `;
