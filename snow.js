@@ -1,23 +1,36 @@
-(function() {
-    const snowflakeCount = 50; // Number of snowflakes
+(function () {
     const snowflakes = [];
     const body = document.body;
 
     function createSnowflake() {
         const snowflake = document.createElement('div');
         snowflake.classList.add('snowflake');
+
+        // Randomly decide between a white dot or a snowflake
+        if (Math.random() > 0.65) {
+            snowflake.textContent = '❄'; // Snowflake character
+            snowflake.style.fontSize = `${10 + Math.random() * 20}px`; // Larger size for flakes
+        } else {
+            snowflake.textContent = ''; // Empty for dot
+            snowflake.style.width = `${2 + Math.random() * 3}px`; // Small dot size
+            snowflake.style.height = snowflake.style.width; // Keep it circular
+            snowflake.style.backgroundColor = 'white'; // White dot
+            snowflake.style.borderRadius = '50%'; // Make it circular
+        }
+
+        // Common properties
         snowflake.style.left = `${Math.random() * 100}vw`;
         snowflake.style.animationDuration = `${8 + Math.random() * 5}s`; // Speed of falling
-        snowflake.style.opacity = Math.random();
-        snowflake.style.fontSize = `${10 + Math.random() * 20}px`; // Size of snowflake
-        snowflake.textContent = '❄';
+        snowflake.style.opacity = Math.random(); // Random opacity
+
         body.appendChild(snowflake);
         snowflakes.push(snowflake);
 
-        setTimeout(() => {
+        // Remove snowflake or dot when its animation ends
+        snowflake.addEventListener('animationend', () => {
             body.removeChild(snowflake);
             snowflakes.splice(snowflakes.indexOf(snowflake), 1);
-        }, 10000); // Time to remove the snowflake after animation ends
+        });
     }
 
     function initSnowfall() {
@@ -42,7 +55,7 @@
         `;
         document.head.appendChild(style);
 
-        setInterval(createSnowflake, 200); // Generate a new snowflake every 200ms
+        setInterval(createSnowflake, 150); // Generate a new snowflake/dot every 200ms
     }
 
     // Initialize the snowfall effect
