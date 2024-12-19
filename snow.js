@@ -55,9 +55,21 @@
         `;
         document.head.appendChild(style);
 
-        setInterval(createSnowflake, 150); // Generate a new snowflake/dot every 200ms
+        setInterval(createSnowflake, 150); // Generate a new snowflake/dot every 150ms
     }
 
-    // Initialize the snowfall effect
-    window.addEventListener('load', initSnowfall);
+    function shouldStartSnowfall() {
+        const today = new Date();
+        const start = new Date(today.getFullYear(), 11, 10); // December 10
+        const end = new Date(today.getFullYear() + 1, 0, 1); // January 1
+
+        return today >= start && today <= end;
+    }
+
+    // Initialize the snowfall effect only if within the date range
+    window.addEventListener('load', () => {
+        if (shouldStartSnowfall()) {
+            initSnowfall();
+        }
+    });
 })();
